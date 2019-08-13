@@ -7,9 +7,22 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 // Scaffold create base page design for app
-class MyApp extends StatelessWidget {
+// Widget can recreate but State is persistent
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+// State<MyApp> tell these data belong to MyApp class
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
   void answerQuestion() {
-    print('Answer chosen!');
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    print(questionIndex);
   }
 
   @override
@@ -25,7 +38,9 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text('The question!'),
+            Text(
+              questions[questionIndex],
+            ),
             RaisedButton(
               child: Text('Answer 1'),
               onPressed: answerQuestion,
